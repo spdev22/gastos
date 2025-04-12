@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/ControlGastos.csproj",
+                "${workspaceFolder}/PersonalExpenses.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/ControlGastos.csproj",
+                "${workspaceFolder}/PersonalExpenses.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/ControlGastos.csproj"
+                "${workspaceFolder}/PersonalExpenses.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

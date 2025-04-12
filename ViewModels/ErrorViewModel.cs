@@ -1,4 +1,4 @@
-namespace ControlGastos.Models;
+namespace PersonalExpenses.ViewModels;
 
 public class ErrorViewModel
 {

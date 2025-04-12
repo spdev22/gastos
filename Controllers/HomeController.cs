@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using ControlGastos.Models;
+using PersonalExpenses.ViewModels;
 
-namespace ControlGastos.Controllers;
+namespace PersonalExpenses.Controllers;
 
 public class HomeController : Controller
 {
