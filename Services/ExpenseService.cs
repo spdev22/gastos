@@ -21,7 +21,10 @@ namespace PersonalExpenses.Services
 
         public async Task DeleteAsync(int id)
         {
+            // try to find the expense with the given id
             var expense = await _context.Expenses.FindAsync(id);
+
+            // if the expense is found, remove it and save the changes
             if (expense != null)
             {
                 _context.Expenses.Remove(expense);

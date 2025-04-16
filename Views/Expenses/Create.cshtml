@@ -1,18 +1,19 @@
-@model PersonalExpenses.Entities.Expense
+@model PersonalExpenses.ViewModels.CreateExpenseModel
 
 @{
     ViewData["Title"] = "Create Expense";
-    var categories = ViewBag.Categories as List<PersonalExpenses.Entities.Category>;
+    var model = Model;
 }
 
 <h1>Create Expense</h1>
 
 <form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
 
     <div class="form-group">
-        <label asp-for="Amount" class="control-label"></label>
-        <input asp-for="Amount" class="form-control" />
-        <span asp-validation-for="Amount" class="text-danger"></span>
+        <label asp-for="Expense" class="control-label"></label>
+        <input asp-for="Expense" type="number" class="form-control" />
+        <span asp-validation-for="Expense" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Date" class="control-label"></label>
@@ -21,7 +22,7 @@
     </div>
     <div class="form-group">
         <label asp-for="CategoryId" class="control-label">Category</label>
-        <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(categories, "Id", "Name"))">
+        <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))">
             <option value="">-- Select Category --</option>
         </select>
         <span asp-validation-for="CategoryId" class="text-danger"></span>
@@ -29,3 +30,7 @@
     <button type="submit" class="btn btn-success">Save</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

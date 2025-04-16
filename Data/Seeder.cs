@@ -23,7 +23,7 @@ public class Seeder
     public async Task SeedCategoriesAsync()
     {
         await _context.Database.MigrateAsync();
-
+        if (await _context.Categories.AnyAsync()) return;
         var categories = new List<Category>
         {
             new Category { Name = "Food" },
