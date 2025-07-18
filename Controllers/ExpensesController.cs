@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using PersonalExpenses.Entities;
 using PersonalExpenses.Services;
@@ -10,10 +11,13 @@ public class ExpensesController : Controller
     private readonly IExpenseService _expenseService;
     private readonly ICategoryService _categoryService;
 
-    public ExpensesController(IExpenseService expenseService, ICategoryService categoryService)
+    private readonly IValidator<CreateExpenseModel> _validator;
+
+    public ExpensesController(IExpenseService expenseService, ICategoryService categoryService, IValidator<CreateExpenseModel> validator)
     {
         _expenseService = expenseService;
         _categoryService = categoryService;
+        _validator = validator;
     }
 
     [HttpGet]
@@ -44,14 +48,24 @@ public class ExpensesController : Controller
     public async Task<IActionResult> Create(CreateExpenseModel createExpenseModel)
     {
 
-        if (!ModelState.IsValid)
+        var validationResult = await _validator.ValidateAsync(createExpenseModel);
+
+        if (!validationResult.IsValid)
         {
+            foreach (var error in validationResult.Errors)
+            {
+                ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+            }
+            createExpenseModel.Categories = (await _categoryService.GetAllAsync()).ToList();
+
             return View(createExpenseModel);
         }
 
         var expense = new Expense()
         {
             Amount = createExpenseModel.Expense,
+            Description = createExpenseModel.Description,
+            Currency = createExpenseModel.Currency,
             CategoryId = createExpenseModel.CategoryId,
             Date = createExpenseModel.Date
         };
@@ -75,9 +89,12 @@ public class ExpensesController : Controller
         var expense = await _expenseService.GetByIdAsync(id);
         if (expense == null) return NotFound();
         var categories = await _categoryService.GetAllAsync();
+
         var editExpenseModel = new EditExpenseModel()
         {
             Categories = categories.ToList(),
+            Description = expense.Description,
+            Currency = expense.Currency,
             Date = expense.Date,
             CategoryId = expense.CategoryId,
             Expense = expense.Amount,
@@ -101,6 +118,8 @@ public class ExpensesController : Controller
         var expense = new Expense()
         {
             Amount = editExpenseModel.Expense,
+            Description = editExpenseModel.Description,
+            Currency = editExpenseModel.Currency,
             CategoryId = editExpenseModel.CategoryId,
             Date = editExpenseModel.Date
         };

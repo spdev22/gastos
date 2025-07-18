@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using PersonalExpenses.Entities;
 
 namespace PersonalExpenses.ViewModels
@@ -10,13 +5,10 @@ namespace PersonalExpenses.ViewModels
     public class CreateExpenseModel
     {
         public List<Category> Categories { get; set; } = new List<Category>();
-
-        [Required(ErrorMessage = "An expense is required")]
-        public decimal Expense { get; set; }
+        public decimal Expense { get; set; } = decimal.MinValue;
+        public string Description { get; set; } = string.Empty;
+        public Currency Currency { get; set; } = Currency.ARS;
         public DateTime Date { get; set; }
-
-        [Required(ErrorMessage = "Please select a category")]
         public int CategoryId { get; set; }
-
     }
 }

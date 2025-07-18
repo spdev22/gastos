@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using PersonalExpenses.Entities;
 
 public class PersonalExpensesDbContext : DbContext
@@ -11,4 +12,5 @@ public class PersonalExpensesDbContext : DbContext
 
     public DbSet<Expense> Expenses { get; set; }
     public DbSet<Category> Categories { get; set; }
+
 }

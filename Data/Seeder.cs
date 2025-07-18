@@ -36,15 +36,4 @@ public class Seeder
         await _context.SaveChangesAsync();
     }
 
-    /* 
-
-        public static void SeedCategories(PersonalExpensesDbContext context)
-        {
-            if (context.Categories.Any()) return;
-            context.Categories.Add(new Category { Name = "Food" });
-            context.Categories.Add(new Category { Name = "Transport" });
-            context.Categories.Add(new Category { Name = "Entertainment" });
-            context.Categories.Add(new Category { Name = "Others" });
-            context.SaveChanges();
-        } */
 }

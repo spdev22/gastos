@@ -1,11 +1,14 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using PersonalExpenses.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddDbContext<PersonalExpensesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -15,7 +18,7 @@ var app = builder.Build();
 
 
 // Seed the database
-app.SeedData();
+//app.SeedData();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

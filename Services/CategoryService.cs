@@ -20,5 +20,10 @@ namespace PersonalExpenses.Services
         {
             return await _dbContext.Categories.ToListAsync();
         }
+
+        public Task<Category?> GetByIdAsync(int id)
+        {
+            return _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == id);
+        }
     }
 }
