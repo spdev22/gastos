@@ -12,6 +12,11 @@ namespace PersonalExpenses.Entities
         public string Description { get; set; } = string.Empty;
         public Currency Currency { get; set; } = Currency.ARS;
         public DateTime Date { get; set; }
+
+
+        public virtual User? User { get; set; }
+        public string? UserId { get; set; }
+
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
     }

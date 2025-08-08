@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Personal Expenses</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ControlGastos.styles.css" asp-append-version="true" />
 </head>
@@ -56,3 +59,15 @@
 </body>
 
 </html>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <form method="post" asp-area="Identity" asp-page="/Account/Logout">
+        <button type="submit">Cerrar sesión</button>
+    </form>
+}
+else
+{
+    <a asp-area="Identity" asp-page="/Account/Login">Iniciar sesión</a>
+    <a asp-area="Identity" asp-page="/Account/Register">Registrarse</a>
+}

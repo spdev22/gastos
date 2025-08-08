@@ -1,9 +1,9 @@
 
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using PersonalExpenses.Entities;
 
-public class PersonalExpensesDbContext : DbContext
+public class PersonalExpensesDbContext : IdentityDbContext<User>
 {
     public PersonalExpensesDbContext(DbContextOptions<PersonalExpensesDbContext> options)
         : base(options)

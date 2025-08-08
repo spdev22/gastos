@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using PersonalExpenses.Entities;
+using PersonalExpenses.Helpers;
 
 namespace PersonalExpenses.Services
 {
@@ -14,6 +15,9 @@ namespace PersonalExpenses.Services
         }
 
         public async Task CreateAsync(Expense expense)
+
+        // Add the expense to the context and save changes
+
         {
             _context.Expenses.Add(expense);
             await _context.SaveChangesAsync();
@@ -37,6 +41,28 @@ namespace PersonalExpenses.Services
             return await _context.Expenses.Include(e => e.Category).ToListAsync();
         }
 
+        public async Task<IEnumerable<Expense>> GetAllByUserAsync(string userId)
+        {
+            return await _context.Expenses
+                .Where(e => e.UserId == userId)
+                .Include(e => e.Category)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Expense>> GetForUserAsyncWith(string userId, List<IExpenseFilter> filters)
+        {
+            IQueryable<Expense> query = _context.Expenses.Include(e => e.Category)
+                .Where(e => e.UserId == userId);
+            foreach (var filter in filters)
+            {
+                query = filter.Apply(query);
+            }
+
+            var expenses = await query.ToListAsync();
+
+            return expenses;
+        }
+
         public async Task<Expense?> GetByIdAsync(int id)
         {
             return await _context.Expenses.Include(e => e.Category).FirstOrDefaultAsync(e => e.Id == id);
@@ -46,6 +72,13 @@ namespace PersonalExpenses.Services
         {
             _context.Expenses.Update(expense);
             await _context.SaveChangesAsync();
+        }
+
+        public Task<decimal> GetTotalForCurrentMonthAsync(string userId)
+        {
+            return _context.Expenses
+                .Where(e => e.UserId == userId && e.Date.Month == DateTime.Now.Month && e.Date.Year == DateTime.Now.Year)
+                .SumAsync(e => e.Amount);
         }
     }
 }
