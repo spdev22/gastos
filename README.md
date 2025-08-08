@@ -1,7 +1,6 @@
-
 # 💸 Control de Gastos Personales
 
-Aplicación web desarrollada con ASP.NET Core MVC para llevar un registro de gastos personales, clasificados por categorías. 
+Aplicación web desarrollada con ASP.NET Core MVC para llevar un registro de gastos personales, clasificados por categorías.
 
 ---
 
@@ -31,19 +30,16 @@ Aplicación web desarrollada con ASP.NET Core MVC para llevar un registro de gas
   - Monto
   - Fecha
   - Categoría
-- Gestión de categorías
+  - Descripción
 - Listado y filtrado de gastos por fecha y categoría
 - Validaciones básicas en formularios
 - Uso de servicios para la lógica de negocio
-
----
+- Sistema de autenticación por usuario
+- Visualizacion de gastos mensuales y por categoría
 
 ## 🛣️ Funcionalidades planeadas
 
-- [ ] Sistema de autenticación por usuario
-- [ ] Filtro de gastos por usuario
 - [ ] Exportación a Excel o PDF
-- [ ] Carga de configuraciones desde `appsettings.json`
 - [ ] Dashboard con resumen mensual (total por categoría)
 - [ ] Paginación en las vistas
 - [ ] Dark mode 😎
@@ -68,12 +64,14 @@ ControlGastos/
 ## 🚀 Cómo correr el proyecto
 
 1. Cloná el repo:
+
    ```bash
    git clone https://github.com/tuusuario/ControlGastos.git
    cd ControlGastos
    ```
 
 2. Configurá la cadena de conexión en `appsettings.json`:
+
    ```json
    "ConnectionStrings": {
      "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=ControlGastosDb;Trusted_Connection=True;"
@@ -81,6 +79,7 @@ ControlGastos/
    ```
 
 3. Ejecutá las migraciones:
+
    ```bash
    dotnet ef database update
    ```
